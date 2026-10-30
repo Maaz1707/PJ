@@ -7,7 +7,7 @@ const assert=require('node:assert/strict');
   const page=await browser.newPage({viewport:{width:1440,height:1100}});const errors=[];
   page.on('pageerror',e=>errors.push(e.message));page.on('console',m=>{if(['warning','error'].includes(m.type()))console.log('BROWSER',m.text().slice(0,240))});
   await page.route('**/test-hand.jpg',route=>route.fulfill({path:__dirname+'/test-fixtures/hand.jpg',contentType:'image/jpeg'}));
-  await page.goto(process.env.TRYON_BASE||'http://127.0.0.1:8081/#product/p38');
+  await page.goto(process.env.TRYON_BASE||'http://127.0.0.1:8081/#product/p33');
   await page.evaluate(async()=>{
    const {JewelleryRenderer}=await import('/tryon/renderer.js');const render=JewelleryRenderer.prototype.render;
    JewelleryRenderer.prototype.render=function(){window.testRenderer=this;return render.call(this)};
@@ -27,6 +27,12 @@ const assert=require('node:assert/strict');
   await page.locator('#vto-debug-toggle').check();await page.screenshot({path:'preview-tryon-tracking.png'});await page.locator('#vto-debug-toggle').uncheck();
   await page.evaluate(()=>window.fixtureBlank=true);await page.waitForTimeout(1800);assert.equal(await page.evaluate(()=>window.testRenderer.model.visible),false);assert.equal(await page.locator('[data-action=capture]').isDisabled(),true);
   await page.evaluate(()=>window.fixtureBlank=false);await page.waitForFunction(()=>document.querySelector('.vto-status').dataset.state==='tracking');
+  // A new product must replace the GLB in camera mode and stop the old session.
+  await page.locator('[data-product=p35]').click();await page.waitForFunction(()=>document.querySelector('.vto-status').dataset.state==='ready');
+  assert.equal(await page.evaluate(()=>window.testRenderer.model.userData.productId),'p35');
+  assert.match(await page.evaluate(()=>window.testRenderer.model.userData.asset),/horizon-prototype/);
+  assert.equal(await page.evaluate(()=>window.testStreams.every(s=>s.getTracks().every(t=>t.readyState==='ended'))),true);
+  await page.locator('[data-action=start]').click();await page.waitForFunction(()=>document.querySelector('.vto-status').dataset.state==='tracking',{timeout:45000});
   await page.locator('[data-finish="White Gold"]').click();
   await page.locator('[data-action=capture]').click();await page.waitForFunction(()=>document.querySelector('.vto-status').dataset.state==='captured');
   assert.equal(await page.evaluate(()=>window.testStreams.every(s=>s.getTracks().every(t=>t.readyState==='ended'))),true);

@@ -1,5 +1,7 @@
 # Parag Jewellers ring try-on
 
+**Product asset correction:** The original generic sample-model flow described below has been superseded. The current application resolves models and galleries exclusively by catalogue product ID, with three distinct product-specific prototypes and 43 explicit missing-model records. Exact approved CAD is missing for all 46 products. Read [PRODUCT-ASSETS.md](PRODUCT-ASSETS.md) and [PRODUCT-ASSET-INVENTORY.json](PRODUCT-ASSET-INVENTORY.json) for the current architecture, assets and validation. `npm run models:generate` now runs generate-product-assets.mjs. The generic demo GLBs are retired and are never a product fallback.
+
 ## Audit and implementation choice
 
 The existing shop is buildless JavaScript with hash routes, 46 catalogue products, seven ring products, and a separate market-rates endpoint. The Sites edition packages those files with a Vinext Worker; the GitHub edition serves public/ with a Vercel function. There were no CAD/GLB product assets. Migrating this working shop to React/Next.js would add unnecessary work and dependencies, so the feature uses browser ES modules alongside the existing app. No backend endpoint or paid service was added.

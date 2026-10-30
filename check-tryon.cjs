@@ -5,10 +5,10 @@ const browser=await chromium.launch({executablePath:process.env.CHROME_PATH||und
 try{
  const page=await browser.newPage({viewport:{width:1440,height:1000}}),errors=[];
  page.on('pageerror',e=>errors.push(e.message));page.on('console',m=>{if(m.type()==='error')console.log('BROWSER',m.text().slice(0,180))});
- await page.goto('http://127.0.0.1:8081/#product/p38');await page.locator('[data-vto=viewer]').click();
+ await page.goto('http://127.0.0.1:8081/#product/p33');await page.locator('[data-vto=viewer]').click();
  await page.waitForFunction(()=>document.querySelector('.vto-status')?.textContent.includes('Drag to rotate'),{timeout:30000});
  assert.equal(await page.locator('.vto-canvas').count(),1);
- for(const design of ['halo','band','solitaire']){await page.locator('#vto-design').selectOption(design);await page.waitForFunction(()=>document.querySelector('.vto-status').textContent.includes('Drag to rotate'))}
+ for(const id of ['p35','p40','p33']){await page.locator('[data-product='+id+']').click();await page.waitForFunction(()=>document.querySelector('.vto-status').dataset.state==='ready')}
  await page.locator('[data-finish="Rose Gold"]').click();assert.equal(await page.locator('[data-finish="Rose Gold"]').getAttribute('aria-pressed'),'true');
  await page.locator('[data-action=zoom-in]').click();await page.locator('[data-action=reset]').click();
  await page.screenshot({path:'preview-tryon-desktop.png'});

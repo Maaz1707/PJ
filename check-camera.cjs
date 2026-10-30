@@ -4,7 +4,7 @@ const assert=require('node:assert/strict');
  const browser=await chromium.launch({executablePath:process.env.CHROME_PATH||undefined,headless:true,args:['--enable-unsafe-swiftshader','--use-fake-device-for-media-stream','--use-fake-ui-for-media-stream']});
  try{
   const context=await browser.newContext({permissions:['camera']});const page=await context.newPage();
-  await page.goto('http://127.0.0.1:8081/#product/p38');await page.locator('[data-vto=camera]').click();
+  await page.goto('http://127.0.0.1:8081/#product/p33');await page.locator('[data-vto=camera]').click();
   await page.waitForFunction(()=>document.querySelector('.vto-status')?.textContent.includes('Start camera'));
   await page.locator('[data-action=start]').click();
   await page.waitForFunction(()=>document.querySelector('.vto-video').srcObject?.active);

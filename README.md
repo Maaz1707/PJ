@@ -1,5 +1,7 @@
 # PJ — Parag Jewellers
 
+Product IDs now control model loading and gallery selection. Three distinct photo-inspired prototypes are available for p33 (Circular Gleam), p35 (Horizon) and p40 (Orbit); 43 other records explicitly report missing models. Exact CAD is still needed for all products. See [PRODUCT-ASSETS.md](PRODUCT-ASSETS.md) and [the full inventory](PRODUCT-ASSET-INVENTORY.json) for the root-cause fix, model paths, validation and asset handoff.
+
 Ring product pages now include a 3D viewer and browser-local live hand try-on prototype. See [TRYON.md](TRYON.md) for architecture, privacy, asset replacement, validation results and limitations. The 3D shapes are clearly labelled demonstration models. Run `npm test` for geometry and camera lifecycle checks; no packages need installing.
 
 Responsive jewellery storefront with white and green branding, product collections, search, filters, wishlist, a preview shopping bag, and reduced-motion-aware animations.
