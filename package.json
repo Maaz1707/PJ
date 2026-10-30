@@ -3,5 +3,6 @@
   "version": "1.0.0",
   "private": true,
   "type": "module",
+  "scripts": { "test": "node test-tryon.mjs", "models:generate": "node generate-demo-rings.mjs" },
   "engines": { "node": "22.x" }
 }

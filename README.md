@@ -1,5 +1,7 @@
 # PJ — Parag Jewellers
 
+Ring product pages now include a 3D viewer and browser-local live hand try-on prototype. See [TRYON.md](TRYON.md) for architecture, privacy, asset replacement, validation results and limitations. The 3D shapes are clearly labelled demonstration models. Run `npm test` for geometry and camera lifecycle checks; no packages need installing.
+
 Responsive jewellery storefront with white and green branding, product collections, search, filters, wishlist, a preview shopping bag, and reduced-motion-aware animations.
 
 ## Deploy on Vercel
