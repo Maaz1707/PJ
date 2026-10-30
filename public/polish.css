@@ -1,0 +1,40 @@
+/* Surface polish preserves the existing grid, spacing and page structure. */
+.searchbox{transition:border-color .25s,box-shadow .25s}
+.searchbox:focus-within{border-color:#216447;box-shadow:0 0 0 4px #2164470c}
+.product{transition:box-shadow .35s ease,border-color .35s ease;background:#fff}
+.product:focus-within{box-shadow:0 8px 30px #173f3012}
+.market-card{position:relative;overflow:hidden;transition:border-color .35s,box-shadow .35s,background .35s}
+.market-card:hover,.market-card:focus-visible{border-color:#a4bcaa;box-shadow:0 8px 26px #173f3010;background:#f7fbf8}
+.market-symbol{background:linear-gradient(135deg,#f4f0df,#e7f3e9);color:#325f43}
+.market-card-arrow{transition:translate .3s}
+.market-card:hover .market-card-arrow{translate:3px -3px}
+.categories>a img{transition:filter .4s,transform .65s cubic-bezier(.16,1,.3,1)}
+.categories>a:hover img{filter:drop-shadow(0 8px 8px #20462d20)}
+.wish{transition:color .25s,background .25s,box-shadow .25s}
+.wish:hover{background:#fff;box-shadow:0 3px 15px #173f301a}
+.newsletter input{transition:box-shadow .3s}
+.newsletter input:focus{box-shadow:inset 0 -2px #b0955b}
+@media(hover:hover) and (pointer:fine){
+ .product:hover{box-shadow:0 12px 35px #173f3012}
+ .categories>a:hover img{transform:translateY(-5px) scale(1.035)}
+ .services>button{transition:background .3s,box-shadow .3s}
+ .services>button:hover{background:#eff6f0;box-shadow:inset 0 -2px #b49a64}
+}
+@media(prefers-reduced-motion:no-preference){
+ .market-card,.market-chart-panel,.market-heading,.market-preview-bottom{transition:opacity .85s ease,translate .85s cubic-bezier(.16,1,.3,1),box-shadow .35s,border-color .35s}
+ .market-spark path{animation:chart-ink 1.2s ease both}
+ .market-dot:not(.offline){animation:market-beacon 3s ease-out infinite}
+ .market-desk:has(.offline) .market-dot{animation:none}
+ .brand img{transition:filter .5s,transform .7s cubic-bezier(.16,1,.3,1)}
+ .brand:hover img{filter:drop-shadow(0 2px 5px #b4955860);transform:rotate(-4deg)}
+ nav a{position:relative}
+ nav a::after{content:'';position:absolute;bottom:0;left:15%;right:15%;height:1px;background:#a88c50;transform:scaleX(0);transition:transform .35s cubic-bezier(.16,1,.3,1)}
+ nav a:hover::after,nav a:focus-visible::after{transform:scaleX(1)}
+ .tap-halo{position:absolute;width:12px;height:12px;border-radius:50%;background:currentColor;opacity:.14;pointer-events:none;transform:translate(-50%,-50%);animation:tap-halo .65s ease-out forwards}
+ .primary,.outline{position:relative;overflow:hidden}
+ #toast{backdrop-filter:blur(12px)}
+ @keyframes chart-ink{from{opacity:0;clip-path:inset(0 100% 0 0)}to{opacity:1;clip-path:inset(0)}}
+ @keyframes market-beacon{0%{box-shadow:0 0 0 0 #32835730}70%,100%{box-shadow:0 0 0 6px #32835700}}
+ @keyframes tap-halo{to{scale:35;opacity:0}}
+}
+@media(prefers-reduced-motion:reduce){.categories>a:hover img,.brand:hover img{transform:none}.market-card-arrow{translate:none}html{scroll-behavior:auto}}

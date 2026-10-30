@@ -1,7 +1,7 @@
 /* Progressive motion: content stays visible if animation APIs are unavailable. */
 (() => {
   const preference = matchMedia('(prefers-reduced-motion: reduce)');
-  const targets = '.categories > a, .tile-grid > a, .section-title, .featured-products > .product, .products > .product, .banner-pair > a, .collection-banner, .discovery, .services > button, .footer-top, .newsletter, .detail-photo, .detail-content, .shop-intro';
+  const targets = '.categories > a, .tile-grid > a, .section-title, .featured-products > .product, .products > .product, .banner-pair > a, .collection-banner, .discovery, .services > button, .footer-top, .newsletter, .detail-photo, .detail-content, .shop-intro, .market-heading, .market-card, .market-chart-panel, .market-preview-bottom';
   let observer;
   let scheduled = false;
   const observed = new WeakSet();
@@ -43,6 +43,17 @@
     if (element) reveal(element);
   });
   document.addEventListener('click', event => {
+    const surface = event.target.closest('.primary, .outline');
+    if (surface && !preference.matches) {
+      const rect = surface.getBoundingClientRect();
+      const halo = document.createElement('span');
+      halo.className = 'tap-halo';
+      halo.setAttribute('aria-hidden', 'true');
+      halo.style.left = `${event.detail ? event.clientX - rect.left : rect.width / 2}px`;
+      halo.style.top = `${event.detail ? event.clientY - rect.top : rect.height / 2}px`;
+      surface.append(halo);
+      setTimeout(() => halo.remove(), 700);
+    }
     const button = event.target.closest('.wish, .primary, .hero-dots button');
     if (!preference.matches && button?.animate) {
       button.animate([
